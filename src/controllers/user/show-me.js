@@ -3,7 +3,7 @@ const showMe = async (req, res) => {
   if (!session.userId) return res.sendStatus(401);
 
   const user = await User.find(session.userId);
-  res.send(user);
+  res.send({user});
 };
 
 module.exports = showMe;

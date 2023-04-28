@@ -10,7 +10,10 @@ socket.on('disconnect', () => {
 });
 
 // make a GET request for message history
-fetch('/api/message-history')
+const roomId = new URLSearchParams(window.location.search).get('room_id');
+
+console.log(roomId)
+fetch(`/api/message-history?room_id=${roomId}`)
   .then(response => response.json())
   .then(messages => {
     console.log(messages)
@@ -29,7 +32,7 @@ const input = document.getElementById('input');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   if (input.value) {
-    socket.emit('chat message', input.value);
+    socket.emit('chat message', input.value, roomId);
     input.value = '';
   }
 });

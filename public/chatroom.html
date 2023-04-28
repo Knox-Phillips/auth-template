@@ -14,12 +14,18 @@
       #messages > li { padding: 0.5rem 1rem; }
       #messages > li:nth-child(odd) { background: #efefef; }
     </style>
+      <link href="styles/style.css">
+      <script src="/socket.io/socket.io.js"></script>
+      <script defer src="./scripts/global.js"></script>
+      <script src="scripts/chatroom.js" defer></script>
   </head>
-  <script src="/socket.io/socket.io.js"></script>
-  <script defer src="./scripts/global.js"></script>
-  <script src="scripts/chatroom.js" defer></script>
   <body>
-    <nav id="main-nav"></nav>
+    <nav id="main-nav">
+      <ul style="width:95%; display: flex; list-style: none; justify-content: space-between;">
+      <li><a href="/">Home</a></li>
+      <li><a href="./user.html">Profile</a></li>
+    </ul>
+    </nav>
     <main>
     <ul id="messages"></ul>
     <form id="form" >

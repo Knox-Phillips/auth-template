@@ -1,4 +1,3 @@
-
 // const handleSessions = require('./middleware/handle-sessions');
 require("dotenv").config()
 const express = require('express');
@@ -11,6 +10,10 @@ const http = require('http');
 const socketio = require('socket.io');
 const { messageHistory } = require('./controllers/message');
 const { sendMessage } = require('./controllers/message');
+const {createRoom} = require('./controllers/message')
+const {joinRoom} = require('./controllers/message')
+const {listRoom} = require('./controllers/message')
+
 const cookieParser = require('cookie-parser');
 
 
@@ -21,6 +24,8 @@ const io = socketio(server);
 
 app.use(cookieParser());
 app.use(addModels)
+
+
 
 io.on('connection', (socket) => {
   console.log('A user connected');
@@ -43,11 +48,18 @@ io.on('connection', (socket) => {
     console.log('A user disconnected');
   });
 
-  socket.on('chat message', async (msg) => {
-    console.log(`Received message: ${msg}`);
+  socket.on('joinRoom', (roomName, callback) => {
+    socket.join(roomName);
+    console.log(`User ${socket.id} joined room ${roomName}`);
+    callback(`You joined room ${roomName}`);
+  });
+
+
+  socket.on('chat message', async (msg,id) => {
+    console.log(`Received message: ${msg}`, id);
     io.emit('chat message', msg);
 
-    const result = await sendMessage(msg, socket.userId);
+    const result = await sendMessage(msg, socket.userId, id);
     console.log(result);
   });
 });
@@ -62,6 +74,21 @@ app.use('/api', routes);
 //SOCKET.IO FUNCTIONS/ROUTES
 app.get('/api/message-history', (req,res) => {
     return messageHistory(req,res,io)
+})
+
+app.get('/chatrooms/:room_id', (req, res) => {
+  return messageHistory(req,res,io);
+});
+
+app.get('/api/listRoom', (req,res) => {
+  return listRoom(req,res)
+})
+app.post('/api/create-room', (req,res) => {
+  return createRoom(req,res,io)
+})
+
+app.post('/api/joinRoom', (req,res) => {
+  return joinRoom(req,res,io)
 })
 
 

@@ -5,7 +5,7 @@ const Message = require('../db/models/message');
 const addModels = (req, res, next) => {
   req.db = {
     User,
-    Message
+    Message,
   };
   next();
 };
