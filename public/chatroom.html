@@ -15,42 +15,18 @@
       #messages > li:nth-child(odd) { background: #efefef; }
     </style>
   </head>
+  <script src="/socket.io/socket.io.js"></script>
+  <script defer src="./scripts/global.js"></script>
+  <script src="scripts/chatroom.js" defer></script>
   <body>
+    <nav id="main-nav"></nav>
+    <main>
     <ul id="messages"></ul>
-    <form id="form" action="">
+    <form id="form" >
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-
-  var form = document.getElementById('form');
-  var input = document.getElementById('input');
-  let messageUL = document.getElementById('messages')
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (input.value) {
-      socket.emit('chat message', input.value);
-      input.value = '';
-    }
-  });
-
-  socket.on('chat message', function(msg) {
-    var item = document.createElement('li');
-    item.textContent = msg.message;
-    messageUL.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-  });
-
-  socket.on('message history', (messages) => {
-  messages.forEach((message) => {
-    const li = document.createElement('li');
-    console.log(message)
-    li.textContent = message.messages;
-    messageUL.appendChild(li);
-  });
-});
+  </main>
+    <script>
 </script>
   </body>
 </html>

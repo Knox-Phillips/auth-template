@@ -67,6 +67,7 @@ const setNav = (hasLoggedInUser) => {
 
   const loggedInNavHtml = `<ul>
     <li><a href="/">Home</a></li>
+    <li><a href="./chatroom.html">Chatroom</a></li>
     <li><a href="./user.html">Profile</a></li>
   </ul>`;
 

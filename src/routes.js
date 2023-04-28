@@ -2,21 +2,13 @@ const express = require('express');
 const userController = require('./controllers/user');
 const addModels = require('./middleware/add-models');
 const checkAuthentication = require('./middleware/check-authentication');
-const http = require('http');
-const { Server } = require('socket.io');
 
-// Create the http server
-const server = http.createServer();
-
-// Create the socket.io server and pass in the http server
-const io = new Server(server);
 
 // Import the message controller
 const messageController = require('./controllers/message');
 
 const Router = express.Router();
 Router.use(addModels);
-
 
 
 Router.get('/users', userController.list);
@@ -33,6 +25,9 @@ Router.get('/logged-in-secret', checkAuthentication, (req, res) => {
   res.send({ msg: 'The secret is: there is no secret.' });
 });
 
-Router.get('/message-history', messageController.messageHistory);
+
+
+
+
 
 module.exports = Router;

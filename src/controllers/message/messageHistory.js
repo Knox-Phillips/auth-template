@@ -1,12 +1,12 @@
-const messageHistory = async (req, res) => {
+const messageHistory = async (req, res, io) => {
     const { session, db: { Message } } = req;
     if (!session.userId) return res.sendStatus(401);
     
     // socket.io logic here
-    const messages = await Message.getMessages();
-    io.emit('chat message', messages);
+    const messages = await Message.getMessageHistory();
+    io.emit('message history', messages);
     
-    res.send('Chat message sent successfully');
+    res.send({response:messages});
   };
 
   module.exports = messageHistory
