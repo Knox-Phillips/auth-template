@@ -6,13 +6,23 @@ console.log(user)
 fetch('/api/listRoom')
 .then(response => response.json())
 .then(data => {
-    console.log(data)
     data.forEach(elem => {
+        console.log(elem)
+
         const listElement = document.createElement('li')
-        listElement.textContent = elem.name
+        listElement.classList.add('d-flex','flex-row')
+        const para = document.createElement('p')
+        para.textContent = elem.name
+        const users = document.createElement('ul')
+        const user = document.createElement('li')
+        let unique = [...new Set(elem.users)]
 
-
-        const button = document.createElement('button')
+        unique.forEach(elem => {
+            user.textContent = elem
+            users.append(user)
+        })
+        const button = document.createElement('a')
+        button.innerHTML = `<i class="fa-solid fa-circle-plus" style="color: #99ad00;"></i>`
         button.addEventListener('click', () => {
             fetch('/api/joinRoom', {
                 method: "POST",
@@ -26,7 +36,9 @@ fetch('/api/listRoom')
             })
             window.location.href = `/chatroom.html?room_id=${elem.id}`
         })
+        listElement.append(para)
         listElement.append(button)
+        listElement.append(users)
 
         chatRoomslist.append(listElement)
     })
