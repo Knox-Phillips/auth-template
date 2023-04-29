@@ -15,8 +15,8 @@ Router.get('/users', userController.list);
 Router.post('/users', userController.create);
 Router.get('/users/:id', userController.show);
 // We can use middleware slotted in between the route and the controller as well
+Router.get('/pictures', userController.findProfilePicture)
 Router.patch('/users/:id', checkAuthentication, userController.update);
-
 Router.post('/users/login', userController.login);
 Router.delete('/users/logout', userController.logout);
 Router.get('/me', userController.showMe);

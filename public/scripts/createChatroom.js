@@ -1,7 +1,10 @@
+const main = async () => {
 const form = document.getElementById('form')
 const roomName = document.getElementById('RoomName');
 const desc = document.getElementById('Description');
 
+const user = await window.fetchLoggedInUser();
+window.setNav(!!user);
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -22,3 +25,6 @@ form.addEventListener('submit', (e) => {
       })
     }
 });
+}
+
+main()

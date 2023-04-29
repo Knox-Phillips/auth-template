@@ -4,7 +4,7 @@ class message {
     static async getMessageHistory(roomId) {
         try {
           const messages = await knex.raw(`
-          SELECT messages.messages, messages.time_created, users.username
+          SELECT messages.messages, messages.time_created, users.username, users.id
           FROM messages
           JOIN users ON messages.user_id = users.id
           WHERE messages.room_id = ?

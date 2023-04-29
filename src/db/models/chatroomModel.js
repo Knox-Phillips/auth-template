@@ -38,8 +38,8 @@ class chatrooms {
               users: knex.raw('array_append(users, ?)', [userId])
             })
             .returning('*');
-      
-          return result;
+          console.log(result[0])
+          return result[0];
         } catch (err) {
           console.error(err);
           return null;

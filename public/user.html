@@ -15,11 +15,14 @@
     <h1 id="username"></h1>
 
     <p id="rename">Update Username</p>
-    <form id="username-form" aria-labelledby="rename">
+    <form id="username-form" aria-labelledby="rename" enctype="multipart/form-data">
       <label for="username">Username:</label>
       <input type="text" name="username" id="username-input">
       <button type="submit">Update Username</button>
+      <input type="file" name="profilePicture">
     </form>
+
+    <img>
 
     <hr>
 

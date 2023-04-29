@@ -1,6 +1,8 @@
 // const handleSessions = require('./middleware/handle-sessions');
 require("dotenv").config()
 const express = require('express');
+const profilePic = require('./controllers/user/profilePicture')
+const upload = require('./middleware/uploadProfile')
 const path = require('path');
 const handleCookieSessions = require('./middleware/handle-cookie-sessions');
 const routes = require('./routes');
@@ -24,7 +26,6 @@ const io = socketio(server);
 
 app.use(cookieParser());
 app.use(addModels)
-
 
 
 io.on('connection', (socket) => {
@@ -60,16 +61,21 @@ io.on('connection', (socket) => {
     io.emit('chat message', msg);
 
     const result = await sendMessage(msg, socket.userId, id);
-    console.log(result);
   });
 });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use('/uploads', express.static('uploads'));
 app.use(logRoutes);
 
 app.use(handleCookieSessions);
 app.use('/api', routes);
+
+// Route for handling profile picture uploads
+app.post('/api/upload-profile-picture', upload.single('profilePicture'), profilePic);
+
+
 
 //SOCKET.IO FUNCTIONS/ROUTES
 app.get('/api/message-history', (req,res) => {

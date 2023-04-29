@@ -66,13 +66,13 @@ const setNav = (hasLoggedInUser) => {
   </ul>`;
 
   const loggedInNavHtml = `<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="./chatrooms.html">Chatrooms</a></li>
-    <li><a href="./user.html">Profile</a></li>
+    <li><a class="nav-link" href="./createChatrooms.html">Create A Room</a></li>
+    <li><a class="nav-link" href="./chatrooms.html">Chatrooms</a></li>
+    <li><a class="nav-link" href="./user.html">Profile</a></li>
   </ul>`;
 
   const navHtml = hasLoggedInUser ? loggedInNavHtml : loggedOutNavHtml;
-  document.querySelector('nav').innerHTML = navHtml;
+  document.querySelector('#main-nav').innerHTML = navHtml;
 };
 
 // This is wonky. Once you learn about bundlers we won't have to
